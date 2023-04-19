@@ -1782,6 +1782,8 @@ odoo.define("account.ReconciliationModel", function (require) {
                 debit: amount > 0 ? amount : 0,
                 credit: amount < 0 ? -amount : 0,
                 tax_exigible: prop.tax_exigible,
+                file: prop.file, // S&G attach file
+                file_filename: prop.file_filename,
                 analytic_tag_ids: [[6, null, _.pluck(prop.analytic_tag_ids, "id")]],
             };
             if (!isNaN(prop.id)) {

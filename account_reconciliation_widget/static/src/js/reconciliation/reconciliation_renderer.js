@@ -724,6 +724,10 @@ odoo.define("account.ReconciliationRenderer", function (require) {
                             name: "amount",
                         },
                         {
+                            type: "binary", // S&G: File attachment field
+                            name: "file",
+                        },
+                        {
                             type: "char", // TODO is it a bug or a feature when type date exists ?
                             name: "date",
                         },
@@ -805,6 +809,14 @@ odoo.define("account.ReconciliationRenderer", function (require) {
                         {mode: "edit"}
                     );
 
+                    // Set up file attachment field
+                    self.fields.file = new basic_fields.FieldBinaryFile(
+                        self,
+                        "file",
+                        record,
+                        {mode: "edit"}
+                    );
+
                     self.fields.date = new basic_fields.FieldDate(
                         self,
                         "date",
@@ -859,6 +871,10 @@ odoo.define("account.ReconciliationRenderer", function (require) {
                     self.fields.to_check.appendTo(
                         $create.find(".create_to_check .o_td_field")
                     );
+                    // Include file attachment field on form
+                    self.fields.file.appendTo($create.find(".create_file .o_td_field"));
+                    self.fields.date.appendTo($create.find(".create_date .o_td_field"));
+
                     self.$(".create").append($create);
                 });
         },
@@ -957,6 +973,15 @@ odoo.define("account.ReconciliationRenderer", function (require) {
                     return;
                 }
                 this.trigger_up("update_proposition", {data: event.data.changes});
+                // S&G: If type is "binary", we need an extra trigger to store filename
+                if (event.target.field.type == "binary") {
+                    // Must set value manually (because stopPropagation is called?)
+                    event.target.value = event.data.changes.file;
+                    var changes = {};
+                    changes[event.target.name + "_filename"] =
+                        event.target.filename_value;
+                    this.trigger_up("update_proposition", {data: changes});
+                }
             }
         },
         /**

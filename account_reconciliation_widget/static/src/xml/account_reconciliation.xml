@@ -421,6 +421,11 @@
                                 >Amount</label></td>
                     <td class="o_td_field" />
                 </tr>
+                <!-- SG: Add field for file attachment -->
+                <tr class="create_file">
+                    <td class="o_td_label">Attach file</td>
+                    <td class="o_td_field" />
+                </tr>
                 <tr class="create_force_tax_included d-none">
                     <td class="o_td_label"><label
                                     class="o_form_label"

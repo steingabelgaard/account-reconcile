@@ -212,6 +212,23 @@ class AccountBankStatementLine(models.Model):
             aml_dict["statement_line_id"] = self.id
             self._prepare_move_line_for_currency(aml_dict, date)
 
+            # S&G: Attach file to Move
+            if aml_dict.get("file"):
+                filedata = aml_dict["file"]
+                filename = aml_dict.get("file_filename")
+                del aml_dict["file"]
+                del aml_dict["file_filename"]
+                self.env["ir.attachment"].create(
+                    {
+                        "res_model": "account.move",
+                        "res_id": self.move_id.id,
+                        "datas": filedata,
+                        "name": filename or "Test",
+                        "type": "binary",
+                        "company_id": self.move_id.company_id.id,
+                    }
+                )
+
         # Create write-offs
         wo_aml = self.env["account.move.line"]
         for aml_dict in new_aml_dicts:
