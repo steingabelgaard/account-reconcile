@@ -8,11 +8,15 @@ setuptools.setup(
     description="Meta package for oca-account-reconcile Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-account_bank_statement_reopen_skip_undo_reconciliation>=15.0dev,<15.1dev',
         'odoo-addon-account_mass_reconcile>=15.0dev,<15.1dev',
+        'odoo-addon-account_mass_reconcile_by_purchase_line>=15.0dev,<15.1dev',
         'odoo-addon-account_move_reconcile_forbid_cancel>=15.0dev,<15.1dev',
         'odoo-addon-account_partner_reconcile>=15.0dev,<15.1dev',
+        'odoo-addon-account_reconcile_payment_order>=15.0dev,<15.1dev',
         'odoo-addon-account_reconciliation_widget>=15.0dev,<15.1dev',
         'odoo-addon-account_reconciliation_widget_due_date>=15.0dev,<15.1dev',
+        'odoo-addon-account_reconciliation_widget_limit_aml>=15.0dev,<15.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
