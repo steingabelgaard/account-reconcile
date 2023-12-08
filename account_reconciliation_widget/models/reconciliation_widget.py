@@ -772,9 +772,11 @@ class AccountReconciliation(models.AbstractModel):
         domain_reconciliation = [
             "&",
             "&",
+            "&",
             ("statement_line_id", "=", False),
             ("account_id", "in", aml_accounts),
             ("balance", "!=", 0.0),
+            ("parent_state", "=", "posted"),
         ]
         if st_line.company_id.account_bank_reconciliation_start:
             domain_reconciliation = expression.AND(
