@@ -212,6 +212,10 @@ class AccountBankStatementLine(models.Model):
                         "company_id": self.move_id.company_id.id,
                     }
                 )
+            if "file" in aml_dict:
+                del aml_dict["file"]
+            if "file_filename" in aml_dict:
+                del aml_dict["file_filename"]
 
         # Create write-offs
         wo_aml = self.env["account.move.line"]
