@@ -578,7 +578,7 @@
                         t-esc="state.st_line.account_name"
                     /></td></tr>
         <tr t-if="state.st_line.narration"><td>Note</td><td style="white-space: pre;"><t
-                        t-esc="state.st_line.narration"
+                        t-raw="state.st_line.narration"
                     /></td></tr>
     </table>
 </t>
