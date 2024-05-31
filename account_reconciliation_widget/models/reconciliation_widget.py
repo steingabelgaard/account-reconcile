@@ -918,6 +918,7 @@ class AccountReconciliation(models.AbstractModel):
                 "partner_id": line.partner_id.id,
                 "partner_name": line.partner_id.name,
                 "currency_id": line_currency.id,
+                "narration": line.move_id.narration or "",
             }
 
             debit = line.debit
