@@ -277,7 +277,10 @@ class AccountBankStatementLine(models.Model):
         statement_currency = self.journal_id.currency_id or company_currency
         st_line_currency = self.currency_id or statement_currency
         st_line_currency_rate = (
-            self.currency_id and (self.amount_currency / self.amount) or False
+            self.currency_id
+            and self.amount
+            and (self.amount_currency / self.amount)
+            or False
         )
         company = self.company_id
 
