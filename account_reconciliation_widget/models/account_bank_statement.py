@@ -187,6 +187,10 @@ class AccountBankStatementLine(models.Model):
         self.move_id.ref = self._get_move_ref(self.statement_id.name)
         counterpart_moves = counterpart_moves | self.move_id
 
+        # S&G: Update to_check
+        if self.env.context.get("default_to_check"):
+            self.move_id.to_check = True
+
         # Complete dicts to create both counterpart move lines and write-offs
         to_create = counterpart_aml_dicts + new_aml_dicts
         date = self.date or fields.Date.today()
