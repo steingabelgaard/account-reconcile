@@ -160,7 +160,9 @@ class AccountReconciliation(models.AbstractModel):
         self.env["res.partner.bank"]._apply_ir_rules(ir_rules_query, "read")
         from_clause, where_clause, where_clause_params = ir_rules_query.get_sql()
         if where_clause:
-            where_bank = ("AND %s" % where_clause).replace("res_partner_bank", "bank")
+            where_bank = ("AND %s" % where_clause).replace(
+                '"res_partner_bank"', '"bank"'
+            )
             params += where_clause_params
         else:
             where_bank = ""
@@ -328,7 +330,10 @@ class AccountReconciliation(models.AbstractModel):
             domain += srch_domain
         bank_statement_lines = self.env["account.bank.statement.line"].search(domain)
 
-        results = self.get_bank_statement_line_data(bank_statement_lines.ids)
+        results = self.get_bank_statement_line_data(
+            bank_statement_lines.ids,
+            excluded_ids=bank_statement_lines.move_id.line_ids.ids,
+        )
         bank_statement_lines_left = self.env["account.bank.statement.line"].browse(
             [line["st_line"]["id"] for line in results["lines"]]
         )
