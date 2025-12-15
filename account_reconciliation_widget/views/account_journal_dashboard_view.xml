@@ -29,7 +29,7 @@
                         <div class="col overflow-hidden text-left">
                             <a
                                 type="object"
-                                name="open_action"
+                                name="open_action_ext"
                                 context="{'action_name': 'account_reconciliation_widget.action_move_journal_line_to_check'}"
                             >
                                 <t t-esc="dashboard.number_to_check" /> to check</a>
