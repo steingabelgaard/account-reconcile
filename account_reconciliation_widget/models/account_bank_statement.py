@@ -202,7 +202,7 @@ class AccountBankStatementLine(models.Model):
                 filename = aml_dict.get("file_filename")
                 del aml_dict["file"]
                 del aml_dict["file_filename"]
-                self.env["ir.attachment"].create(
+                att = self.env["ir.attachment"].create(
                     {
                         "res_model": "account.move",
                         "res_id": self.move_id.id,
@@ -212,6 +212,7 @@ class AccountBankStatementLine(models.Model):
                         "company_id": self.move_id.company_id.id,
                     }
                 )
+                att.register_as_main_attachment(force=False)
             if "file" in aml_dict:
                 del aml_dict["file"]
             if "file_filename" in aml_dict:
