@@ -276,6 +276,8 @@ class AccountBankStatementLine(models.Model):
         for new_aml, counterpart_move_line in aml_to_reconcile:
             (new_aml | counterpart_move_line).reconcile()
 
+            # S&G: Ensure counter part date is updated
+            counterpart_move_line.move_id.date = date
             self._check_invoice_state(counterpart_move_line.move_id)
 
         # Needs to be called manually as lines were created 1 by 1
